@@ -1,4 +1,3 @@
-import pandas as pd
 import pymongo
 import urllib
 import streamlit as st
@@ -47,25 +46,3 @@ def get_mongo_client_debug(config):
         f"mongodb+srv://{user}:{password}@{cluster}/?retryWrites=true&w=majority"
     )
     return client
-
-def create_dataframe_from_cursor(cursor):
-    """Transform the cursor from mongo into a dataframe
-
-        Params
-        ------
-        cursor : cursor
-            Cursor pointing to a mongo collection.
-        
-        Returns
-        -------
-        df
-            The dataframe made from the mongo cursor.
-        """
-    df = None
-    for document in cursor:
-        if df is not None:
-            df = df.append(document, ignore_index=True)
-        else:
-            df = pd.DataFrame(document, index=[0])
-    df.drop("_id", axis=1, inplace=True)
-    return df
