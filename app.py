@@ -18,7 +18,14 @@ image_formats = ["png","jpg","jpeg"]
 
 cols[0].subheader("Haga click en el botón para acceder a su certificado")
 
-for file in os.listdir("Assets/Reconocimientos 87/"):
+global_list = os.listdir("Assets/Reconocimientos 87/")
+
+busqueda = st.text_input("Introduzca el nombre a buscar:")
+
+if busqueda:
+    global_list = [brand for brand in global_list if 'busqueda' in global_list]
+
+for file in global_list:
     with cols[0]:
         if os.path.exists(f"Assets/Logos 87 donantes/{file[:-3]}{image_formats[0]}"):
             st.image(f"Assets/Logos 87 donantes/{file[:-3]}{image_formats[0]}")
